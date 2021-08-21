@@ -13,7 +13,7 @@ const colors = () => shuffle(COLORS);
 
 createCards(colors);
 
-const cardsClicked = [];
+let cardsClicked = [];
 let lockCards = false;
 
 
