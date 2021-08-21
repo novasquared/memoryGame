@@ -14,6 +14,7 @@ const colors = () => shuffle(COLORS);
 createCards(colors);
 
 let cardsClicked = [];
+let lockCards = false;
 
 
 
@@ -123,7 +124,7 @@ function isGameOver() {
 /** Handle clicking on a card: this could be first-card or second-card. */
 function handleCardClick(evt) {
   evt.preventDefault();
-
+  if (lockCards) {return;}
   if (cardsClicked.length < 3 && !evt.target.parentElement.classList.contains("matchFound")
         && evt.target.parentElement.classList.contains("unflipped")){
     cardsClicked.push(evt.target.parentElement);
@@ -133,17 +134,18 @@ function handleCardClick(evt) {
   if (cardsClicked.length === 2) {
     let card1 = cardsClicked[0];
     let card2 = cardsClicked[1];
-    let cardsMatch = doCardsMatch(card1, card2);
-
-    if (cardsMatch) {
+    if (doCardsMatch(card1, card2)) {
       card1.classList.add("matchFound");
       card2.classList.add("matchFound");
     } else {
+      lockCards = true;
       setTimeout(() => {
         unFlipCard(card1);
         unFlipCard(card2);
+        lockCards = false;
       }, 1000);
     }
+
     cardsClicked = [];
   }
 
