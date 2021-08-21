@@ -13,7 +13,7 @@ const colors = () => shuffle(COLORS);
 
 createCards(colors);
 
-let cardsClicked = [];
+const cardsClicked = [];
 let lockCards = false;
 
 
@@ -46,8 +46,8 @@ function createCards(colors) {
   
   for (let color of colors()) {
     // create div for card, append it to gameBoard and give it a class per the color array
-    let card = document.createElement("div");
-    let back = document.createElement('img');
+    const card = document.createElement("div");
+    const back = document.createElement('img');
 
     gameBoard.appendChild(card);
 
@@ -64,7 +64,7 @@ function createCards(colors) {
 
 /** Flip a card face-up. */
 function flipCard(card) {
-  let image = card.firstElementChild;
+  const image = card.firstElementChild;
 
   if (card.classList.contains("unflipped")) {
     card.classList.remove("unflipped");
@@ -76,7 +76,7 @@ function flipCard(card) {
 
 /** Flip a card face-down. */
 function unFlipCard(card) {
-  let image = card.firstElementChild;
+  const image = card.firstElementChild;
 
   if (card.classList.contains("flipped") && !card.classList.contains("matchFound")) {
     card.classList.remove("flipped");
@@ -88,8 +88,8 @@ function unFlipCard(card) {
 
 /** Determine whether or not two cards match */
 function doCardsMatch(card1, card2) {
-  let classList1 = card1.classList;
-  let classList2 = card2.classList;
+  const classList1 = card1.classList;
+  const classList2 = card2.classList;
 
   if (classList1[1] === classList2[1]) return true;
 }
@@ -114,7 +114,7 @@ function resetGame() {
 };
 
 function isGameOver() {
-  let cards = document.getElementsByClassName("card");
+  const cards = document.getElementsByClassName("card");
 
   return Array.from(cards).every((card) => {
     return card.classList.contains("matchFound");
@@ -132,8 +132,8 @@ function handleCardClick(evt) {
   }
 
   if (cardsClicked.length === 2) {
-    let card1 = cardsClicked[0];
-    let card2 = cardsClicked[1];
+    const card1 = cardsClicked[0];
+    const card2 = cardsClicked[1];
     if (doCardsMatch(card1, card2)) {
       card1.classList.add("matchFound");
       card2.classList.add("matchFound");
@@ -152,5 +152,4 @@ function handleCardClick(evt) {
   if (isGameOver()) resetGame();
 }
 
-let cards = document.getElementById("game");
-cards.addEventListener("click", handleCardClick);
+document.getElementById("game").addEventListener("click", handleCardClick);
